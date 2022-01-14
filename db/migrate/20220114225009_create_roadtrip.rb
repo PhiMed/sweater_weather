@@ -1,0 +1,6 @@
+class CreateRoadtrip < ActiveRecord::Migration[5.2]
+  def change
+    create_table :roadtrips do |t|
+    end
+  end
+end

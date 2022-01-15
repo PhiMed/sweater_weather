@@ -1,3 +1,0 @@
-class Forecast < ApplicationRecord
-
-end

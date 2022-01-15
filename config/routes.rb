@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
-      namespace :v1 do
-        resources :users
-        resources :roadtrip
-        resources :forecast
-        resources :sessions
-      end
+    namespace :v1 do
+      resources :users
+      resources :roadtrips
+      resources :forecasts
+      resources :sessions
     end
+  end
 end

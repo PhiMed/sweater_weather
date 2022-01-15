@@ -32,21 +32,6 @@ describe 'Users API' do
     expect(user[:attributes][:email]).to be_a(String)
   end
 
-  it "can get one user by their email" do
-    user_1 = create(:user, email: "user_1@gmail.com")
-    user_2 = create(:user, email: "user_2@gmail.com")
-
-    get "/api/v1/users/?email=user_2@gmail.com"
-
-    user = (JSON.parse(response.body, symbolize_names: true))[:data]
-
-    expect(response).to be_successful
-
-    expect(user[:attributes][:email]).to eq("#{user_2.email}")
-    expect(user[:attributes][:email]).to_not eq("#{user_1.email}")
-
-  end
-
   it 'sends an error code if user does not exist' do
     get "/api/v1/users/1000"
 
@@ -57,7 +42,17 @@ describe 'Users API' do
   end
 
   it 'can create a new user' do
+    user = User.new(id: 8, name: 'bob', email: 'cats@cats.com', phone: '123-2345', rescuer_trailer_capacity: 10, address: '123 street')
 
+    post "/api/v1/users?email=#{user.email}"
+
+    expect(response.status).to eq(201)
+
+    get "/api/v1/users?id=#{user.id}"
+
+    user = (JSON.parse(response.body, symbolize_names: true))[:data]
+
+    expect(response).to be_successful
   end
 
   it 'can update a user' do

@@ -31,3 +31,4 @@ describe 'Backgrounds API' do
 
     expect(background[:attributes][:path]).to be_a(String)
   end
+end

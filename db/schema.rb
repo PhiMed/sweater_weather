@@ -15,16 +15,6 @@ ActiveRecord::Schema.define(version: 2022_01_14_225056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "backgrounds", force: :cascade do |t|
-    t.string "location"
-    t.string "img_url"
-    t.string "source"
-    t.string "author"
-  end
-
-  create_table "forecasts", force: :cascade do |t|
-  end
-
   create_table "roadtrips", force: :cascade do |t|
     t.bigint "user_id"
     t.index ["user_id"], name: "index_roadtrips_on_user_id"
@@ -33,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_225056) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "api_key"
   end
 
   add_foreign_key "roadtrips", "users"

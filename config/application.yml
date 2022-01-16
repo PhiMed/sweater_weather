@@ -1,5 +1,2 @@
-geocoding_api_path: http://www.mapquestapi.com
-
 mapquest_api_key: 0AX62YXY62wGXH5SmGEyrOSAA63hiSqG
-
-weather_api_path: https://api.openweathermap.org
+openweathermap_api_key: 436fdffe9e26a1ecb2ef418925c3aa3c

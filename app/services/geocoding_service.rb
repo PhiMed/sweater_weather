@@ -1,12 +1,13 @@
 class GeocodingService
   class << self
     def conn
-      conn = Faraday.new(url: ENV['geocoding_api_path'])
+      conn = Faraday.new('http://www.mapquestapi.com')
     end
 
     def get_coordinates(location)
-      response = conn.get("/geocoding/v1/batch?api_key=#{ENV['mapquest_api_key']}&location=#{location}")
-      a = JSON.parse(response.body, symbolize_names: true)
+      api_key = ENV['mapquest_api_key']
+      response = conn.get("/geocoding/v1/batch?key=#{api_key}&location=#{location}")
+      JSON.parse(response.body, symbolize_names: true)[:results][0][:locations][0][:latLng]
     end
 
     def post_data(url)

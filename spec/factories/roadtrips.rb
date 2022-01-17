@@ -1,5 +1,5 @@
-FactoryBot.define do
-  factory :roadtrip do
-    user
-  end
-end
+# FactoryBot.define do
+#   factory :roadtrip do
+#     user
+#   end
+# end

@@ -1,7 +1,6 @@
 class BackgroundSerializer
   include JSONAPI::Serializer
-  attributes :id,
-             :location,
+  attributes :location,
              :img_url,
              :credit
 end

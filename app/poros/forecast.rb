@@ -38,6 +38,14 @@ class Forecast
   end
 
   def hourly_weather
-
+    next_eight_hours = @data[:hourly].shift(8)
+    next_eight_hours.map do |hour|
+      {
+        :time => hour[:dt],
+        :temperature => hour[:temp],
+        :conditions => hour[:weather].first[:description],
+        :icon => hour[:weather].first[:icon]
+      }
+    end
   end
 end

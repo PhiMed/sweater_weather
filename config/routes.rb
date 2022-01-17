@@ -5,11 +5,17 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users
-      resources :road_trip
-      resources :forecast
-      resources :backgrounds
-      resources :sessions
+      get '/users', to: "users#show"
+
+      post '/users', to: "users#create"
+
+      post 'sessions', to: "sessions#create"
+
+      post '/road_trip', to: "roadtrips#create"
+
+      get '/forecast', to: "forecast#show"
+
+      get '/backgrounds', to: "backgrounds#show"
     end
   end
 end

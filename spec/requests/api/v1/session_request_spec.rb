@@ -1,7 +1,7 @@
-require 'rails_helper'
-
-describe 'Sessions API' do
-  it '...' do
-
-  end
-end
+# require 'rails_helper'
+#
+# describe 'Sessions API' do
+#   it '...' do
+#
+#   end
+# end

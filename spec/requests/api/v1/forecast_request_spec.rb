@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'forecast' do
-    it 'returns a forecast' do
-      location1 = '5598 W 72nd Pl, Arvada, CO 80003'
-      location2 = '11002 Benton St, Westminster, CO 80020'
+  it 'returns a forecast' do
+    location = "Denver, CO"
 
-      result = MapService.farm_directions(location1, location2)
+    get "/api/v1/backgrounds?location=#{location}"
 
-      expect(result.first).to have_key(:narrative)
-    end
+    expect(response).to be_successful
+
+    response_body = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response_body[:type]).to eq("background")
+  end
 end

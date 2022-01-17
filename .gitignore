@@ -24,3 +24,5 @@
 
 # Ignore simplcov
 /coverage
+
+/config/application.yml

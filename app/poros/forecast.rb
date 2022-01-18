@@ -48,4 +48,13 @@ class Forecast
       }
     end
   end
+
+  def roadtrip_hourly_weather
+    @data[:hourly].map do |hour|
+      {
+        :temperature => hour[:temp],
+        :conditions => hour[:weather].first[:description],
+      }
+    end
+  end
 end

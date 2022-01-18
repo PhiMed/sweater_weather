@@ -37,10 +37,13 @@ RSpec.describe 'forecast' do
 
     expect(response_body[:attributes][:daily_weather]).to be_an Array
     expect(response_body[:attributes][:daily_weather].count).to eq 5
-    expect(response_body[:attributes][:daily_weather][0]).to have_key(:sunrise)
-    expect(response_body[:attributes][:daily_weather][0][:sunrise]).not_to be nil
+    expect(response_body[:attributes][:daily_weather][0]).to have_key(:date)
+    expect(response_body[:attributes][:daily_weather][0][:date]).not_to be nil
 
     expect(response_body[:attributes][:hourly_weather]).to be_an Array
     expect(response_body[:attributes][:hourly_weather].count).to eq 8
+    expect(response_body[:attributes][:hourly_weather][0]).to have_key(:time)
+    expect(response_body[:attributes][:hourly_weather][0][:time]).not_to be nil
+
   end
 end

@@ -14,25 +14,23 @@ class RoadtripFacade
           }
       else
         hours_to_destination = (travel_time_in_seconds / 3600).round(0)
-        destination_coordinates = GeocodingService.get_coordinates(destination)
-        weather_at_eta = self.get_forecast_in_x_hours(destination_coordinates, hours_to_destination)
           data =
             {
               :start_city => origin,
               :end_city => destination,
               :travel_time => formatted_time,
-              :weather_at_eta => weather_at_eta
+              :weather_at_eta => forecast_on_arrival(destination, hours_to_destination)
             }
       end
       Roadtrip.new(data)
     end
 
-    def get_forecast_in_x_hours(destination_coordinates, hours_to_destination)
-      a = ForecastService.get_forecast(destination_coordinates[:lat], destination_coordinates[:lng])
+    def forecast_on_arrival(destination, hours_to_destination)
+      forecast = ForecastFacade.get_forecast(destination)
       if hours_to_destination < 1
         {
-          :temperature => a[:hourly][0][:temp],
-          :conditions => a[:hourly][0][:weather][0][:description]
+          :temperature => forecast.roadtrip_hourly_weather[0][:temperature],
+          :conditions => forecast.roadtrip_hourly_weather[0][:conditions]
         }
       elsif
         hours_to_destination > 48
@@ -42,8 +40,8 @@ class RoadtripFacade
         }
       else
         {
-          :temperature => a[:hourly][(hours_to_destination-1)][:temp],
-          :conditions => a[:hourly][(hours_to_destination-1)][:weather][0][:description]
+          :temperature => forecast.roadtrip_hourly_weather[(hours_to_destination-1)][:temperature],
+          :conditions => forecast.roadtrip_hourly_weather[(hours_to_destination-1)][:conditions]
         }
       end
     end

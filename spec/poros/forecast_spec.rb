@@ -24,7 +24,14 @@ RSpec.describe Forecast, type: :model do
 
     it 'hourly_weather' do
       expect(@forecast.hourly_weather).to be_an Array
+      expect(@forecast.hourly_weather.count).to eq 8
       expect(@forecast.hourly_weather[0][:conditions]).to eq("clear sky")
+    end
+
+    it 'roadtrip_hourly_weather' do
+      expect(@forecast.roadtrip_hourly_weather).to be_an Array
+      expect(@forecast.roadtrip_hourly_weather[0][:conditions]).to eq("clear sky")
+      expect(@forecast.roadtrip_hourly_weather.count).to eq 48
     end
   end
 end

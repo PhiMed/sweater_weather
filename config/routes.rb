@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       get '/forecast', to: "forecast#show"
 
       get '/backgrounds', to: "backgrounds#show"
+
+      get '/book-search', to: "booksearch#search"
+
+
     end
   end
 end

@@ -20,4 +20,22 @@ describe 'Book-search API' do
     expect(response_body[:attributes][:books]).to be_an Array
     expect(response_body[:attributes][:books].count).to eq 5
   end
+
+  it 'edge case - it can return all results if quantity of results is less than
+        quantity requested' do
+        
+    location = "Farmington, NM"
+    quantity = 80
+
+    get "/api/v1/book-search?location=#{location}&quantity=#{quantity}"
+
+    expect(response).to be_successful
+
+    response_body = JSON.parse(response.body, symbolize_names: true)[:data]
+
+
+    expect(response_body[:attributes][:total_books_found]).to be < 80
+    expect(response_body[:attributes][:books]).to be_an Array
+    expect(response_body[:attributes][:books].count).to be < 80
+  end
 end

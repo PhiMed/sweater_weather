@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Roadtrip API' do
-  it "can create a roadtrip" do
+  before :each do
     json_payload = {
                     "email": "whatever@example.com",
                     "password": "password",
@@ -10,12 +10,15 @@ describe 'Roadtrip API' do
     post '/api/v1/users', params: json_payload, as: :json
 
     response_hash = JSON.parse(response.body, symbolize_names: true)[:data]
-    api_key = response_hash[:attributes][:api_key]
+    @api_key = response_hash[:attributes][:api_key]
+  end
+
+  it "can create a roadtrip" do
 
     json_payload = {
                     "origin": "Los Angeles, CA",
                     "destination": "Denver, CO",
-                    "api_key": api_key
+                    "api_key": @api_key
                                       }
     post '/api/v1/road_trip', params: json_payload, as: :json
 
@@ -29,5 +32,51 @@ describe 'Roadtrip API' do
     expect(response_hash[:attributes][:weather_at_eta]).to be_a Hash
     expect(response_hash[:attributes][:weather_at_eta][:temperature]).to be > -20
     expect(response_hash[:attributes][:weather_at_eta][:conditions]).to be_a String
+  end
+
+  it "can handle impossible requests" do
+    json_payload = {
+                    "origin": "Los Angeles, CA",
+                    "destination": "St. Cloud, FR",
+                    "api_key": @api_key
+                                      }
+    post '/api/v1/road_trip', params: json_payload, as: :json
+
+    response_hash = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response_hash[:attributes][:travel_time]).to eq "Impossible"
+    expect(response_hash[:attributes][:weather_at_eta]).to eq ""
+  end
+
+  it "can handle very short trips" do
+    json_payload = {
+                    "origin": "Denver, CO",
+                    "destination": "Golden, CO",
+                    "api_key": @api_key
+                                      }
+    post '/api/v1/road_trip', params: json_payload, as: :json
+
+    response_hash = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response_hash[:attributes][:travel_time]).not_to be nil
+    expect(response_hash[:attributes][:weather_at_eta]).to be_a Hash
+    expect(response_hash[:attributes][:weather_at_eta][:temperature]).to be > -20
+    expect(response_hash[:attributes][:weather_at_eta][:conditions]).to be_a String
+  end
+
+  it "can handle very long trips" do
+    json_payload = {
+                    "origin": "Anchorage, AK",
+                    "destination": "Miami, FL",
+                    "api_key": @api_key
+                                      }
+    post '/api/v1/road_trip', params: json_payload, as: :json
+
+    response_hash = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response_hash[:attributes][:travel_time]).not_to be nil
+    expect(response_hash[:attributes][:weather_at_eta]).to be_a Hash
+    expect(response_hash[:attributes][:weather_at_eta][:temperature]).to eq "Unavailable"
+    expect(response_hash[:attributes][:weather_at_eta][:conditions]).to eq "Unavailable"
   end
 end

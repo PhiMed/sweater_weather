@@ -1,10 +1,10 @@
 class BooksearchFacade
   class << self
-    def aggregate(destination)
+    def aggregate(destination, quantity)
       forecast = ForecastFacade.get_forecast(destination)
       book_data = BooksearchService.search(destination)
-      first_five_books = (
-                          book_data[:docs].shift(5).map do |book|
+      books = (
+                          book_data[:docs].shift(quantity.to_i).map do |book|
                             Book.new(book)
                           end
                          )
@@ -17,7 +17,7 @@ class BooksearchFacade
             :destination => destination,
             :forecast => summary_hash,
             :total_books_found => book_data[:numFound],
-            :books => first_five_books
+            :books => books
           }
       Booksearch.new(data)
     end

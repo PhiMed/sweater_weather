@@ -1,4 +1,4 @@
-class BooksearchSerializer
+class BooksSerializer
   include JSONAPI::Serializer
   attributes  :destination,
               :forecast,

@@ -1,8 +1,8 @@
 class Api::V1::BooksearchController < ApplicationController
   def search
-    booksearch = BooksearchFacade.aggregate(booksearch_params[:location], booksearch_params[:quantity])
+    booksearch = BooksFacade.aggregate(booksearch_params[:location], booksearch_params[:quantity])
 
-    render json: BooksearchSerializer.new(booksearch), status: 201
+    render json: BooksSerializer.new(booksearch), status: 201
   end
 
   private

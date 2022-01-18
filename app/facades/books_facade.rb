@@ -1,4 +1,4 @@
-class BooksearchFacade
+class BooksFacade
   class << self
     def aggregate(destination, quantity)
       forecast = ForecastFacade.get_forecast(destination)

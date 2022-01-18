@@ -4,12 +4,31 @@ describe Booksearch do
   before :each do
     @books = []
 
-    book1 = create(:book)
-    book2 = create(:book)
-    book3 = create(:book)
-    book4 = create(:book)
-    book5 = create(:book)
-    book6 = create(:book)
+    book1 = Book.new({
+                :isbn=>"515151515151",
+                :title=>"Travel Book",
+                :publisher=>"Dewey, Cheatem & Howe LLC"
+              })
+    book2 = Book.new({
+                :isbn=>"515151515151",
+                :title=>"Travel Book",
+                :publisher=>"Dewey, Cheatem & Howe LLC"
+              })
+    book3 = Book.new({
+                :isbn=>"515151515151",
+                :title=>"Travel Book",
+                :publisher=>"Dewey, Cheatem & Howe LLC"
+              })
+    book4 = Book.new({
+                :isbn=>"515151515151",
+                :title=>"Travel Book",
+                :publisher=>"Dewey, Cheatem & Howe LLC"
+              })
+    book5 = Book.new({
+                :isbn=>"515151515151",
+                :title=>"Travel Book",
+                :publisher=>"Dewey, Cheatem & Howe LLC"
+              })
 
     @books << book1
     @books << book2
@@ -18,7 +37,7 @@ describe Booksearch do
     @books << book5
 
     data = {
-            :destination => "Denver, CO ",
+            :destination => "Denver, CO",
             :forecast => {
                         :summary => "Kinda just meh",
                         :temperature => 40
@@ -34,7 +53,7 @@ describe Booksearch do
   end
 
   it 'attributes' do
-      expect(@booksearch.destination).to eq("Los Angeles, CA")
+      expect(@booksearch.destination).to eq("Denver, CO")
       expect(@booksearch.forecast[:summary]).to eq("Kinda just meh")
       expect(@booksearch.forecast[:temperature]).to eq 40
       expect(@booksearch.total_books_found).to eq 5

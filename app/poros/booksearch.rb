@@ -9,13 +9,7 @@ class Booksearch
     @id = nil
     @destination = data[:destination]
     @forecast = data[:forecast]
-  end
-
-  def total_books_found
-
-  end
-
-  def books
-
+    @total_books_found = data[:total_books_found]
+    @books = data[:books]
   end
 end

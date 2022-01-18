@@ -7,6 +7,7 @@ RSpec.describe ForecastService do
       lon = -105.224325
 
       result = ForecastService.get_forecast(lat, lon)
+  
       expect(result).to be_a Hash
     end
   end

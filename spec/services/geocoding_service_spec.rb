@@ -7,7 +7,12 @@ RSpec.describe GeocodingService do
 
       result = GeocodingService.get_coordinates(location)
 
-      expect(result).to eq({:lat=>39.757005, :lng=>-105.224325})
+      expect(result).to be_a Hash
+      expect(result[:lat]).to be > 39
+      expect(result[:lat]).to be < 40
+      expect(result[:lng]).to be < -105
+      expect(result[:lng]).to be > -106 
+
     end
   end
 end

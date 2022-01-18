@@ -25,4 +25,35 @@ describe 'Sessions API' do
     expect(response_hash[:attributes]).to have_key(:api_key)
     expect(response_hash[:attributes][:api_key].split('').count).to eq 32
   end
+
+  it 'returns a generic error if bad PW/email' do
+    json_payload = {
+                    "email": "whatever@example.com",
+                    "password": "password",
+                    "password_confirmation": "password"
+                    }
+    post '/api/v1/users', params: json_payload, as: :json
+
+    json_payload = {
+                    "email": "whatever@example.com",
+                    "password": "i want to be a triangle"
+                    }
+    post '/api/v1/sessions', params: json_payload, as: :json
+
+    response_hash = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response_hash[:errors][:details]).to eq("Error: Invalid credentials")
+    expect(response_hash[:status]).to eq 401
+
+    json_payload = {
+                    "email": "iwanttobeatriangle@gmail.com",
+                    "password": "password"
+                    }
+    post '/api/v1/sessions', params: json_payload, as: :json
+
+    response_hash = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response_hash[:errors][:details]).to eq("Error: Invalid credentials")
+    expect(response_hash[:status]).to eq 401
+  end
 end

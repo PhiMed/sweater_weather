@@ -1,4 +1,4 @@
-class BooksearchService
+class BooksService
   class << self
     def conn
       conn = Faraday.new(url: 'https://openlibrary.org')

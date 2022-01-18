@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe BooksearchService do
+RSpec.describe BooksService do
   describe 'class methods' do
     it 'get_forecast' do
       location = "Denver, CO"
 
-      result = BooksearchService.search(location)
+      result = BooksService.search(location)
       expect(result).to be_a Hash
     end
   end

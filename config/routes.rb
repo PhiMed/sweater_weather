@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
       get '/backgrounds', to: "backgrounds#show"
 
-      get '/book-search', to: "booksearch#search"
+      get '/book-search', to: "books#search"
 
 
     end

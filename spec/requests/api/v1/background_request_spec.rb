@@ -17,8 +17,7 @@ describe 'Backgrounds API' do
     expect(response_body[:attributes][:credit][:author]).to be_a String
   end
 
-  it 'displays a nice neutral picture of pebbles if for some
-      reason there are no results for the location search' do
+  it 'displays a neutral picture if there are no result' do
     location = "jdbgndfjnbfnb"
 
     get "/api/v1/backgrounds?location=#{location}"
